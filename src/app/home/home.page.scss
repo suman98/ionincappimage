@@ -1,0 +1,123 @@
+.th1 {
+  margin-top: 2px;
+  font-size: 25px !important;
+  font-weight: bold;
+}
+h2 {
+  font-weight: bolder;
+}
+.heading {
+  line-height: 2;
+  position: absolute;
+  left: 45%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  margin: 0px !important;
+  button {
+    display: flex;
+    height: 50px;
+    font-size: 22px;
+    background: transparent;
+    color: white;
+    border: 0px;
+    text-align: center;
+  }
+  img {
+    height: 1em;
+    border-radius: 20%;
+  }
+}
+.social {
+  ion-icon {
+    color: #f7f7f7 !important;
+    zoom: 1.5;
+  }
+  margin: 4px 3px;
+  // position: absolute;
+  // bottom: 0 !important;
+}
+
+.introDetail {
+  line-height: 1.6em !important;
+  max-height: 3.3em !important; /* height is 2x line-height, so two lines will display */
+  overflow: hidden;
+  margin: 0;
+  top: 0;
+}
+
+.title {
+  --background: #d13938;
+  color: white;
+  width: 100%;
+}
+.time {
+  font-size: 0.6em;
+  line-height: 1.5em !important;
+  margin: 0 !important;
+  min-height: 1.5em !important;
+  top: 0;
+}
+.menu-logo {
+  margin-left: -2%;
+}
+.shortDesc {
+  margin-top: 0%;
+  position: absolute;
+  top: 0;
+  text-align: left !important;
+}
+.img-scroll {
+  height: 60vw;
+  overflow: hidden;
+  position: relative;
+  width: 100% !important;
+  background-image: url("../../assets/img/noimage.png");
+  background-size: cover;
+}
+.background-image {
+  background-size: cover;
+  background-position: center;
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  object-fit: cover;
+}
+.topc {
+  font-size: var(--size) !important;
+  line-height: 1.5em !important;
+  max-height: 6em !important; /* height is 2x line-height, so two lines will display */
+  overflow: hidden;
+  margin: 0;
+  margin-top: 2px;
+}
+
+.scrollmenu {
+  background-color: var(--theme) !important;
+  --color: var(--font) !important;
+  z-index: 1;
+  ion-segment-button {
+    --indicator-color-checked: none;
+    --color-checked: var(--navcolor);
+  }
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 120px;
+}
+.my-ion-list {
+  ion-label {
+    margin-left: 20%;
+    width: 100%;
+    margin-bottom: 10px !important;
+  }
+  ion-icon {
+    zoom: 1.5;
+  }
+}

@@ -1,0 +1,233 @@
+<ion-menu side="start">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>ImageKhabar Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="content">
+    <ion-list class="my-ion-list">
+      <ion-list-header class="menu-logo">
+        <ion-img
+          src="../../assets/img/imagekhabar.png"
+          class="center"
+        ></ion-img>
+      </ion-list-header>
+      <ion-item
+        style="line-height: 1.25;margin-top: 20px !important"
+        lines="full"
+      >
+        <i *ngIf="DateNp"
+          >{{ DateNp.ne.strDayOfWeek }}&nbsp;{{ DateNp.ne.strMonth }}&nbsp;{{
+            DateNp.ne.day
+          }}&nbsp;{{ DateNp.ne.year }}<br />{{ DateEng }}</i
+        >
+      </ion-item>
+      <ion-item (click)="Home()" lines="full">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-item>
+      <ion-item (click)="navigateImageFM()" lines="full">
+        <ion-icon name="radio"></ion-icon>
+        <ion-label>Image FM</ion-label>
+      </ion-item>
+      <ion-item (click)="navigateImageNewsFM()" lines="full">
+        <ion-icon name="paper"></ion-icon>
+        <ion-label>Image News FM</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/dateconveter']" lines="full">
+        <ion-icon name="git-compare"></ion-icon>
+        <ion-label>Date Converter</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/aboutus']" lines="full">
+        <ion-icon name="alert"></ion-icon>
+        <ion-label>About Us</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/setting']" lines="full">
+        <ion-icon name="settings"></ion-icon>
+        <ion-label>Settings</ion-label>
+      </ion-item>
+      <ion-item [routerLink]="['/developers']" lines="full">
+        <ion-icon name="code"></ion-icon>
+        <ion-label>Developers</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-item lines="none" style="margin-left:14%">
+      <button style="background:#4267B2" class="social">
+        <ion-icon name="logo-facebook" (click)="facebook()"></ion-icon>
+      </button>
+      <button style="background:#1DA1F2" class="social">
+        <ion-icon name="logo-twitter" (click)="twitter()"></ion-icon>
+      </button>
+      <button style="background:#B2348D" class="social">
+        <ion-icon name="logo-instagram" (click)="insta()"></ion-icon>
+      </button>
+      <button style="background:#FF0000;" class="social" (click)="youtube()">
+        <ion-icon name="logo-youtube"></ion-icon>
+      </button>
+    </ion-item>
+  </ion-content>
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-label>
+        <div class="heading">
+          <button>
+            <img src="../../assets/img/IMG.PNG" />&nbsp;{{ heading }}<br />
+          </button>
+        </div>
+      </ion-label>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event, index)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="adds" *ngIf="ads.below_menu" (click)="openAds(ads.below_menu[0])">
+    <ion-img
+      src="https://imagekhabar.com/storage/{{ ads.below_menu[1] }}"
+      width="100%"
+      height="50vm"
+    ></ion-img>
+  </div>
+  <!-- top content -->
+  <ion-slides (ionSlideDidChange)="onSlideDidChange()">
+    <ion-slide *ngFor="let c of categories; let cIndex = index">
+      <div *ngIf="c; else empty" [style.display]="slidevisible[cIndex]">
+        <div (click)="newsDetail(c[0], c[0].id)" class="topcontent">
+          <h1 class="th1">{{ c[0].title }}</h1>
+          <div class="img-scroll">
+            <img [src]="c[0].thumbnail" class="background-image" />
+          </div>
+          <ion-item *ngIf="c[0].introtext">
+            <p class="topc">{{ c[0].introtext }}</p>
+          </ion-item>
+        </div>
+        <div class="content">
+          <ion-item
+            *ngFor="let d of c | slice: 1"
+            (click)="newsDetail(d, d.id)"
+          >
+            <ion-thumbnail slot="start">
+              <ion-img [src]="d.thumbnail"></ion-img>
+            </ion-thumbnail>
+            <ion-label text-wrap class="shortDesc">
+              <h2 class="introDetail">{{ d.title }}</h2>
+              <p class="introDetail">{{ d.introtext }}</p>
+              <p class="time">{{ d.created_ }}</p>
+            </ion-label>
+          </ion-item>
+          <div *ngIf="cIndex == 0; then featuredextra"></div>
+          <div
+            *ngIf="ads.homepage_below_featured"
+            (click)="(ads.homepage_below_featured[0])"
+          >
+            <ion-img
+              src="https://imagekhabar.com/storage/{{
+                ads.homepage_below_featured[1]
+              }}"
+              width="100%"
+              height="50vm"
+            ></ion-img>
+          </div>
+          <span class="footer"
+            >&copy;imagekhabar.com, All rights reserved.</span
+          >
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+<ng-template #featuredextra>
+  <div [style.display]="f_visible">
+    <ion-label text-center *ngIf="popularNewsdata"
+      ><strong>चर्चित समाचार</strong></ion-label
+    >
+    <ion-item *ngFor="let p of popularNewsdata" (click)="newsDetail(p, p.id)">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="p.thumbnail"></ion-img>
+      </ion-thumbnail>
+      <ion-label text-wrap class="shortDesc">
+        <h2 class="introDetail">{{ p.title }}</h2>
+        <p class="introDetail">{{ p.introtext }}</p>
+        <p class="time">{{ p.created_ }}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-label text-center *ngIf="hotNewsdata"
+      ><strong> मुक्य समाचार </strong></ion-label
+    >
+    <ion-item *ngFor="let h of hotNewsdata" (click)="newsDetail(h, h.id)">
+      <ion-thumbnail slot="start">
+        <ion-img [src]="h.thumbnail"></ion-img>
+      </ion-thumbnail>
+      <ion-label text-wrap class="shortDesc">
+        <h2 class="introDetail">{{ h.title }}</h2>
+        <p class="introDetail">{{ h.introtext }}</p>
+        <p class="time">{{ h.created_ }}</p>
+      </ion-label>
+    </ion-item>
+  </div>
+</ng-template>
+
+<ng-template #empty>
+  <div class="content">
+    <ion-item>
+      <strong>
+        <div *ngIf="error; else load">
+          <ion-label>{{ error }}</ion-label>
+        </div>
+        <ng-template #load>
+          <ion-label><i>Loading news....</i></ion-label>
+        </ng-template>
+      </strong>
+    </ion-item>
+  </div>
+</ng-template>
+
+<div main></div>
+<!-- Scrollable menu -->
+<ion-footer>
+  <ion-segment scrollable class="scrollmenu">
+    <ion-segment-button (click)="Home()" value="0" checked>
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="1" (click)="getCategoryClick(1)">
+      <ion-icon
+        src="../../assets/img/nepal.svg"
+        style="filter: grayscale(100%) sepia(100%);"
+      ></ion-icon>
+      <ion-label>प्रदेश</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="2" (click)="getCategoryClick(2)">
+      <ion-icon src="../../assets/img/speech.svg"></ion-icon>
+      <ion-label>राजनीति</ion-label>
+    </ion-segment-button>
+    <ion-segment-button
+      *ngFor="let Category of CatData | slice: 2:13; let i = index"
+      value="{{ i + 3 }}"
+      (click)="getCategoryClick(i + 3)"
+    >
+      <ion-icon name="{{ Category.icon }}" src=""></ion-icon>
+      <ion-label>{{ Category.title }}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button (click)="getCategoryClick(12)" value="12">
+      <ion-icon name="book"></ion-icon>
+      <ion-label>बुकमार्क</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-footer>

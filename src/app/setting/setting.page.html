@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar >
+      <ion-title>Setting</ion-title>
+         <ion-buttons slot="start">
+                <ion-back-button></ion-back-button>
+              </ion-buttons>
+    </ion-toolbar>
+   
+  </ion-header>
+  
+
+  <ion-content padding>
+
+<div  class="content">
+<ion-item>
+<ion-label>Font Size</ion-label>
+<ion-select [(ngModel)]="fontSize" (ionChange)="setFontSize($event)">
+<ion-select-option value="fnt-sm" >Small</ion-select-option>
+<ion-select-option value="fnt-md" >Normal</ion-select-option>
+<ion-select-option value="fnt-lg" >Large</ion-select-option>
+</ion-select>
+</ion-item>
+<ion-item>
+<ion-label>Theme Style</ion-label>
+<ion-select [(ngModel)]="nightMode" (ionChange)="setNightMode($event)">]
+<ion-select-option value="light-theme">Day</ion-select-option>
+<ion-select-option value="dark-theme" >Night</ion-select-option>
+</ion-select>
+</ion-item>
+</div>
+</ion-content>

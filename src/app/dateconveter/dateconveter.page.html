@@ -1,0 +1,125 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>मिती परिवर्तन </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content" padding>
+  <form (ngSubmit)="AdtoBS()">
+    <ion-item>
+      <ion-label>Year</ion-label>
+      <ion-select
+        [(ngModel)]="todo.year"
+        name="year"
+        (ionChange)="listen(todo.month, todo.year)"
+        *ngIf="enter"
+      >
+        <ion-select-option *ngFor="let y of engYear" [value]="y">{{
+          y
+        }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Months</ion-label>
+      <ion-select
+        [(ngModel)]="todo.month"
+        name="month"
+        (ionChange)="listen(todo.month, todo.year)"
+        *ngIf="enter"
+      >
+        <ion-select-option
+          *ngFor="let m of months; let i = index"
+          [value]="i + 1"
+          >{{ m }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Days</ion-label>
+      <ion-select [(ngModel)]="todo.day" name="day" *ngIf="c; else change">
+        <ion-select-option *ngFor="let d of day" [value]="d">{{
+          d
+        }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ng-template #change>
+      <ion-select [(ngModel)]="todo.day" name="day">
+        <ion-select-option *ngFor="let d of day" [value]="d">{{
+          d
+        }}</ion-select-option>
+      </ion-select>
+    </ng-template>
+    <ion-item text-center>
+      <ion-label>
+        <strong *ngIf="DateNp">
+          {{ DateNp.ne.strDayOfWeek }}&nbsp;,{{ DateNp.ne.day }}&nbsp;,{{
+            DateNp.ne.strMonth
+          }}&nbsp;,{{ DateNp.ne.year }}
+        </strong>
+      </ion-label>
+    </ion-item>
+    <ion-button type="submit" block class="convetor"
+      >BS मा लानुहोस्
+    </ion-button>
+  </form>
+  <form (ngSubmit)="BstoAd()">
+    <ion-item>
+      <ion-label>बर्ष</ion-label>
+      <ion-select
+        [(ngModel)]="todonp.year"
+        name="year"
+        (ionChange)="listennp(todonp.month, todonp.year)"
+        *ngIf="enter"
+      >
+        <ion-select-option *ngFor="let y of nepYear" [value]="y.e">{{
+          y.n
+        }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>महिना</ion-label>
+      <ion-select
+        [(ngModel)]="todonp.month"
+        name="month"
+        (ionChange)="listennp(todonp.month, todonp.year)"
+        *ngIf="enter"
+      >
+        <ion-select-option
+          *ngFor="let m of nmonths; let i = index"
+          [value]="i + 1"
+          >{{ m }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>दिन</ion-label>
+      <ion-select [(ngModel)]="todonp.day" name="day" *ngIf="c; else change1">
+        <ion-select-option *ngFor="let d of nday" [value]="d.e">{{
+          d.n
+        }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ng-template #change1>
+      <ion-select [(ngModel)]="todonp.day" name="day">
+        <ion-select-option *ngFor="let d of nday" [value]="d.e">{{
+          d.n
+        }}</ion-select-option>
+      </ion-select>
+    </ng-template>
+    <ion-item text-center>
+      <ion-label>
+        <strong *ngIf="Dateeng">
+          {{ Dateeng.strDayOfWeek }}&nbsp;,{{ Dateeng.day }}&nbsp;,{{
+            Dateeng.strMonth
+          }}&nbsp;,{{ Dateeng.year }}
+        </strong>
+      </ion-label>
+    </ion-item>
+    <ion-button type="submit" block class="convetor"
+      >AD मा लानुहोस्
+    </ion-button>
+  </form>
+</ion-content>

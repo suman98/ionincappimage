@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      >News Detail
+      <ion-icon
+        id="share-btn"
+        name="share"
+        [style.color]="'#ffffff'"
+        (click)="otherShare(post.title, post.title, null, PostUrl)"
+        class="_right"
+      ></ion-icon>
+      <ion-icon
+        name="bookmark"
+        [style.color]="style"
+        (click)="saveNewsBookmark($event, post, 'news')"
+        class="_right"
+      ></ion-icon>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    >
+    </ion-refresher-content>
+  </ion-refresher>
+  <div class="adds" *ngIf="ads.below_menu">
+    <img
+      src="https://imagekhabar.com{{ ads.below_menu }}"
+      width="100%"
+      height="50vm"
+    />
+  </div>
+  <div class="heading" *ngIf="post">
+    <ion-label text-wrap>
+      <h1>
+        <strong>{{ post.title }}</strong>
+      </h1>
+      <small> <ion-icon name="time"></ion-icon> {{ post.created_ }}</small>
+    </ion-label>
+  </div>
+  <ion-segment scrollable class="sharebtn">
+    <button
+      class="share"
+      style=" background: #4267B2"
+      (click)="facebookShare(post.title, null, PostUrl)"
+    >
+      <ion-icon name="logo-facebook"></ion-icon>
+      <ion-label>&nbsp;Share</ion-label>
+    </button>
+    <button
+      class="share"
+      style="background: #1DA1F2"
+      (click)="shareTwitter(post.title, null, PostUrl)"
+    >
+      <ion-icon name="logo-twitter"></ion-icon>
+      <ion-label>&nbsp;Share</ion-label>
+    </button>
+    <button
+      class="share"
+      style="background: #1EBEA5"
+      (click)="whatsappShare(post.title, null, PostUrl)"
+    >
+      <ion-icon name="logo-whatsapp"></ion-icon>
+      <ion-label>&nbsp;Share</ion-label>
+    </button>
+  </ion-segment>
+  <div *ngIf="post" class="content">
+    <div class="img-scroll">
+      <img
+        class="background-image"
+        src="{{ post.thumbnail }}"
+        alt="{{ post.title }}"
+      />
+    </div>
+    <div [innerHTML]="post.content" class="description"></div>
+    <div style="width: 100%;border-bottom: 1px solid black;height: 47px;"></div>
+
+    <div *ngIf="latestNewsdata; else loadspinner">
+      <ion-label text-center><strong>थप समाचार</strong> </ion-label>
+      <ion-item
+        *ngFor="let l of latestNewsdata"
+        [routerLink]="['/', 'news', l.detailobj, l.id]"
+      >
+        <ion-thumbnail slot="start">
+          <ion-img [src]="l.thumbnail"></ion-img>
+        </ion-thumbnail>
+        <ion-label text-wrap class="shortDesc">
+          <h2 text-left class="introDetail">
+            <strong>{{ l.title }}</strong>
+          </h2>
+          <p class="introDetail">{{ l.introtext }}</p>
+          <p class="time">{{ l.created_ }}</p>
+        </ion-label>
+      </ion-item>
+    </div>
+
+    <ng-template #loadspinner>
+      <ion-spinner name="crescent"></ion-spinner>
+    </ng-template>
+
+    <!-- <div class="adds" *ngIf="ads.homepage_below_featured">
+<img src="https://imagekhabar.com{{ads.homepage_below_featured}}" width="100%" height="50vm">
+</div>  -->
+    <span class="footer">&copy; imagekhabar.com, All rights reserved.</span>
+  </div>
+</ion-content>
